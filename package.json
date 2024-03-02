@@ -1,0 +1,14 @@
+{
+  "name": "nestjs-architecture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd apps/api && npm install",
+    "i": "cd apps/api && npm install",
+    "start": "cd apps/api && npm start",
+    "start:dev": "cd apps/api && npm run start:dev"
+  },
+  "author": "Carlos Fornari",
+  "license": "ISC"
+}
