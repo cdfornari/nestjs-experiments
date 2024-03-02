@@ -7,7 +7,10 @@
     "install": "cd apps/api && npm install",
     "i": "cd apps/api && npm install",
     "start": "cd apps/api && npm start",
-    "start:dev": "cd apps/api && npm run start:dev"
+    "start:dev": "cd apps/api && npm run start:dev",
+    "start:prod": "cd apps/api && npm run start:prod",
+    "debug:circular": "npx madge --circular apps/api/dist/main.js",
+    "debug:depgraph": "npx madge apps/api/dist/main.js --image docs/api-depgraph.png"
   },
   "author": "Carlos Fornari",
   "license": "ISC"
