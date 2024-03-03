@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { UserWithId } from '../entities/user';
+import { UserRepository } from '../../domain';
 
 @Injectable()
-export class MockUserRepository {
+export class MockUserRepository implements UserRepository {
   private users = [new UserWithId('test@test.com', 'password')];
 
   async findAll() {
