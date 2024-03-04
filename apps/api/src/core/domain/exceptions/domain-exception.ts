@@ -1,9 +1,11 @@
 export abstract class DomainException extends Error {
-  constructor(message: string, protected _name: string) {
+  constructor(message: string) {
     super(message);
   }
 
+  static exceptionName = this.constructor.name;
+
   get name() {
-    return this._name;
+    return this.constructor.name;
   }
 }
