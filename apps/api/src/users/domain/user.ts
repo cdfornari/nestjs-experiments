@@ -37,15 +37,15 @@ export class User extends AggregateRoot<UserId> {
     this.on(UserFiredEvent.create(this._id));
   }
 
-  get id() {
-    return this.id;
+  get id(): UserId {
+    return this._id;
   }
 
-  get email() {
-    return this.email;
+  get email(): Email {
+    return this._email;
   }
 
-  get enterprise() {
-    return this.enterprise;
+  get enterprise(): Enterprise | undefined {
+    return this._enterprise;
   }
 }
