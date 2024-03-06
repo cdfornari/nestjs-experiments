@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { SchedulerModule } from './core/infrastructure/scheduler';
 import { CronModule } from './core/infrastructure/cron';
@@ -9,6 +10,7 @@ import { I18nModule } from './core/infrastructure/i18n';
 
 @Module({
   imports: [
+    CqrsModule.forRoot(),
     EventEmitterModule.forRoot(),
     SchedulerModule,
     CronModule,
@@ -18,5 +20,6 @@ import { I18nModule } from './core/infrastructure/i18n';
     I18nModule,
   ],
   controllers: [],
+  providers: [],
 })
 export class AppModule {}

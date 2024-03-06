@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Param } from '@nestjs/common';
-import { UserRepository } from 'src/users/domain';
+import { UserId, UserRepository } from 'src/users/domain';
 import { TenantUser } from '../entities/tenant-user';
 
 @Controller('tenant')
@@ -13,11 +13,11 @@ export class TenantUserController {
 
   @Get()
   async getUsers() {
-    return this.tenantUserRepository.findAll();
+    return this.tenantUserRepository.findUsers();
   }
 
   @Get(':id')
   async getUserById(@Param('id') id: string) {
-    return this.tenantUserRepository.findById(id);
+    return this.tenantUserRepository.findUserById(new UserId(id));
   }
 }
