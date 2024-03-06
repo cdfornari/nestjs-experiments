@@ -8,6 +8,7 @@ import {
   FireUserResponse,
 } from 'src/users/application';
 import { NestEventHandler } from 'src/core/infrastructure/event-handler/nest-event-handler';
+import { WRITE_DATABASE } from '../constants';
 
 export class FireUserCommandType {
   constructor(public readonly id: string) {}
@@ -16,7 +17,7 @@ export class FireUserCommandType {
 @CommandHandler(FireUserCommandType)
 export class FireUsersHandler implements ICommandHandler<FireUserCommandType> {
   constructor(
-    @Inject('USER_READ_REPOSITORY')
+    @Inject(WRITE_DATABASE)
     private readonly userRepository: UserRepository,
     private readonly eventHandler: NestEventHandler,
   ) {}

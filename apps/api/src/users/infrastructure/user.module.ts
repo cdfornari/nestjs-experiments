@@ -11,18 +11,16 @@ import { UserMapper } from './mappers/user-mapper';
 import { FireUsersHandler } from './command-handlers/fire-user.handler';
 import { HireUsersHandler } from './command-handlers/hire-user.handler';
 import { EventHandlerModule } from 'src/core/infrastructure/event-handler/event-handler.module';
+import { READ_DATABASE, WRITE_DATABASE } from './constants';
 
 @Module({
   imports: [I18nModule, EventHandlerModule],
-  controllers: [
-    UserController, 
-    TenantUserController
-  ],
+  controllers: [UserController, TenantUserController],
   providers: [
     { provide: User, useClass: MockUserRepository },
     { provide: TenantUser, useClass: TenantUserRepository },
-    { provide: 'USER_READ_REPOSITORY', useClass: MockUserRepository },
-    { provide: 'USER_WRITE_REPOSITORY', useClass: MockUserRepository },
+    { provide: READ_DATABASE, useClass: MockUserRepository },
+    { provide: WRITE_DATABASE, useClass: MockUserRepository },
     UserMapper,
     GetUsersHandler,
     HireUsersHandler,

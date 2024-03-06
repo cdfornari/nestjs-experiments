@@ -9,6 +9,7 @@ import {
 } from 'src/users/application';
 import { NestEventHandler } from 'src/core/infrastructure/event-handler/nest-event-handler';
 import { EnterpriseType } from 'src/users/domain/value-objects/enterprise';
+import { WRITE_DATABASE } from '../constants';
 
 export class HireUserCommandType {
   constructor(
@@ -20,7 +21,7 @@ export class HireUserCommandType {
 @CommandHandler(HireUserCommandType)
 export class HireUsersHandler implements ICommandHandler<HireUserCommandType> {
   constructor(
-    @Inject('USER_READ_REPOSITORY')
+    @Inject(WRITE_DATABASE)
     private readonly userRepository: UserRepository,
     private readonly eventHandler: NestEventHandler,
   ) {}
