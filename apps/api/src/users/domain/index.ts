@@ -1,4 +1,4 @@
-export { User } from '../infrastructure/entities/user';
+export { User } from './user';
 export { Email } from './value-objects/email';
 export { Enterprise } from './value-objects/enterprise';
 export { UserId } from './value-objects/user-id';
