@@ -5,5 +5,9 @@ export abstract class DomainEvent {
     return this._time;
   }
 
+  get eventName() {
+    return this.constructor.name;
+  }
+
   static eventName = this.constructor.name;
 }
