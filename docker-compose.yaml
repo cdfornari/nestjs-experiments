@@ -11,3 +11,4 @@ services:
     container_name: writeDB
     volumes:
       - ./postgres:/var/lib/postgresql/data
+      - ./db/seed.sql:/seed.sql

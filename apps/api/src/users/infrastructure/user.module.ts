@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { MockUserRepository } from './repositories/user-mock.repository';
 import { UserController } from './controllers/user.controller';
 import { User } from './entities/user';
@@ -12,16 +13,22 @@ import { FireUsersHandler } from './command-handlers/fire-user.handler';
 import { HireUsersHandler } from './command-handlers/hire-user.handler';
 import { EventHandlerModule } from 'src/core/infrastructure/event-handler/event-handler.module';
 import { READ_DATABASE, WRITE_DATABASE } from './constants';
+import { OrmUser } from './entities/orm-user';
+import { OrmUserRepository } from './repositories/orm-user-repository';
+import { OrmUserMapper } from './mappers/orm-user-mapper';
 
 @Module({
-  imports: [I18nModule, EventHandlerModule],
+  imports: [
+    TypeOrmModule.forFeature([OrmUser]),
+    I18nModule, EventHandlerModule],
   controllers: [UserController, TenantUserController],
   providers: [
     { provide: User, useClass: MockUserRepository },
     { provide: TenantUser, useClass: TenantUserRepository },
     { provide: READ_DATABASE, useClass: MockUserRepository },
-    { provide: WRITE_DATABASE, useClass: MockUserRepository },
+    { provide: WRITE_DATABASE, useClass: OrmUserRepository },
     UserMapper,
+    OrmUserMapper,
     GetUsersHandler,
     HireUsersHandler,
     FireUsersHandler,
