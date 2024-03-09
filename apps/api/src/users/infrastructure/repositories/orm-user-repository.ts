@@ -14,9 +14,6 @@ export class OrmUserRepository implements UserRepository {
   ) {}
 
   async saveUser(user: User): Promise<void> {
-    console.log(
-      this.mapper.fromDomainToPersistence(user),
-    );
     this.datasource.save(this.mapper.fromDomainToPersistence(user));
   }
 
