@@ -17,10 +17,11 @@ export class OrmUserRepository implements UserRepository {
     this.datasource.save(this.mapper.fromDomainToPersistence(user));
   }
 
-  async findUserById(id: UserId): Promise<User> {
+  async findUserById(id: UserId): Promise<User | null> {
     const user = await this.datasource.findOneBy({
       id: id.value,
     });
+    if(!user) return null;
     return this.mapper.fromPersistenceToDomain(user);
   }
 

@@ -1,5 +1,4 @@
 import { User } from '../user';
-import { Enterprise } from '../value-objects/enterprise';
 import { UserId } from '../value-objects/user-id';
 
 export interface UserRepository {
