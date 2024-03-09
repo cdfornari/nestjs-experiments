@@ -28,7 +28,4 @@ export class OrmUserRepository implements UserRepository {
     const users = await this.datasource.find();
     return users.map((user) => this.mapper.fromPersistenceToDomain(user));
   }
-
-  updateUserEnterprise: (id: UserId, enterprise: Enterprise) => Promise<void>;
-  removeUserEnterprise: (id: UserId) => Promise<void>;
 }

@@ -46,18 +46,4 @@ export class TenantUserRepository implements UserRepository {
     }
     this.users.push(this.userMapper.fromDomainToPersistence(user) as any);
   }
-
-  async updateUserEnterprise(id: UserId, enterprise: Enterprise) {
-    this.users = this.users.map((u) => {
-      if (u.id === id.value) return { ...u, enterprise };
-      return u;
-    }) as any;
-  }
-
-  async removeUserEnterprise(id: UserId) {
-    this.users = this.users.map((u) => {
-      if (u.id === id.value) return { ...u, enterprise: undefined };
-      return u;
-    }) as any;
-  }
 }

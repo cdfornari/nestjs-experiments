@@ -6,6 +6,4 @@ export interface UserRepository {
   saveUser: (user: User) => Promise<void>;
   findUserById: (id: UserId) => Promise<User | null>;
   findUsers: () => Promise<User[]>;
-  updateUserEnterprise: (id: UserId, enterprise: Enterprise) => Promise<void>;
-  removeUserEnterprise: (id: UserId) => Promise<void>;
 }
