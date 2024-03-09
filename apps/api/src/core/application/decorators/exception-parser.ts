@@ -14,7 +14,9 @@ export class ExceptionParserDecorator<T, U>
 
   async execute(data: T): Promise<Result<U>> {
     try {
-      return await this.service.execute(data);
+      const result = await this.service.execute(data);
+      if (result.isFailure) result.unwrap();
+      return result;
     } catch (error) {
       if (
         error instanceof DomainException ||
