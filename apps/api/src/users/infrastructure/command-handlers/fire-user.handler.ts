@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UserRepository } from 'src/users/domain';
-import { ExceptionCatcherDecorator } from 'src/core/application';
+import { ExceptionParserDecorator } from 'src/core/application';
 import {
   FireUserCommand,
   FireUserDto,
@@ -9,6 +9,7 @@ import {
 } from 'src/users/application';
 import { NestEventHandler } from 'src/core/infrastructure/event-handler/nest-event-handler';
 import { WRITE_DATABASE } from '../constants';
+import { UserExceptionMapper } from '../mappers/user-exception-mapper';
 
 export class FireUserCommandType {
   constructor(public readonly id: string) {}
@@ -20,13 +21,14 @@ export class FireUsersHandler implements ICommandHandler<FireUserCommandType> {
     @Inject(WRITE_DATABASE)
     private readonly userRepository: UserRepository,
     private readonly eventHandler: NestEventHandler,
+    private readonly exceptionMapper: UserExceptionMapper,
   ) {}
 
   async execute(command: FireUserCommandType) {
-    const service = new ExceptionCatcherDecorator<
-      FireUserDto,
-      FireUserResponse
-    >(new FireUserCommand(this.userRepository, this.eventHandler));
+    const service = new ExceptionParserDecorator<FireUserDto, FireUserResponse>(
+      new FireUserCommand(this.userRepository, this.eventHandler),
+      this.exceptionMapper,
+    );
     const result = await service.execute({
       id: command.id,
     });

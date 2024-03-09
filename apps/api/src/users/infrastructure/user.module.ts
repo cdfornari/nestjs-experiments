@@ -16,6 +16,7 @@ import { READ_DATABASE, WRITE_DATABASE } from './constants';
 import { OrmUser } from './entities/orm-user';
 import { OrmUserRepository } from './repositories/orm-user-repository';
 import { OrmUserMapper } from './mappers/orm-user-mapper';
+import { UserExceptionMapper } from './mappers/user-exception-mapper';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { OrmUserMapper } from './mappers/orm-user-mapper';
     { provide: WRITE_DATABASE, useClass: OrmUserRepository },
     UserMapper,
     OrmUserMapper,
+    UserExceptionMapper,
     GetUsersHandler,
     HireUsersHandler,
     FireUsersHandler,

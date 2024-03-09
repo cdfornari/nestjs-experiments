@@ -2,8 +2,9 @@ import { ApplicationService } from '../services/application-service';
 import { Result } from '../result-wrapper/result';
 import { DomainException } from 'src/core/domain';
 import { ExceptionMapper } from '../mappers/exceptions/exception-mapper';
+import { ApplicationException } from '../exceptions/application-exception';
 
-export class DomainExceptionParserDecorator<T, U>
+export class ExceptionParserDecorator<T, U>
   implements ApplicationService<T, U>
 {
   constructor(
@@ -15,10 +16,11 @@ export class DomainExceptionParserDecorator<T, U>
     try {
       return await this.service.execute(data);
     } catch (error) {
-      if (error instanceof DomainException)
-        return Result.failure(
-          this.exceptionMapper.fromDomainToApplication(error),
-        );
+      if (
+        error instanceof DomainException ||
+        error instanceof ApplicationException
+      )
+        throw this.exceptionMapper.toHttp(error);
       throw error;
     }
   }
