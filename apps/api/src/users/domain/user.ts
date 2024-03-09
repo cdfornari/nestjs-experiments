@@ -5,6 +5,7 @@ import { Enterprise } from './value-objects/enterprise';
 import { UserCreatedEvent } from './events/user-created';
 import { UserHiredEvent } from './events/user-hired';
 import { UserFiredEvent } from './events/user-fired';
+import { InvalidUserException } from './exceptions/invalid-user-exception';
 
 export class User extends AggregateRoot<UserId> {
   constructor(
@@ -18,7 +19,7 @@ export class User extends AggregateRoot<UserId> {
 
   validateState(): void {
     if (!this._id || !this._email) {
-      throw new Error('User is invalid');
+      throw new InvalidUserException();
     }
   }
 
