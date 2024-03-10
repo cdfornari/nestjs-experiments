@@ -9,6 +9,7 @@ import { FibonacciModule } from './core/infrastructure/fibonacci';
 import { UserModule } from './users/infrastructure';
 import { PaymentsModule } from './payments/infrastructure';
 import { I18nModule } from './core/infrastructure/i18n';
+import { SurrealModule } from './core/infrastructure/surrealdb/surrealdb.module';
 
 @Module({
   imports: [
@@ -30,6 +31,14 @@ import { I18nModule } from './core/infrastructure/i18n';
       database: process.env.WRITE_DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    SurrealModule.forRoot({
+      url: process.env.READ_DB_HOST,
+      port: +process.env.READ_DB_PORT,
+      username: process.env.READ_DB_USER,
+      password: process.env.READ_DB_PASSWORD,
+      namespace: process.env.READ_DB_NAMESPACE,
+      database: process.env.READ_DB_NAME,
     }),
   ],
   controllers: [],

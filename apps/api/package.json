@@ -37,6 +37,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "string-format": "^2.0.0",
+    "surrealdb.node": "^0.3.0",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {

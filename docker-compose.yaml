@@ -12,3 +12,14 @@ services:
     volumes:
       - ./postgres:/var/lib/postgresql/data
       - ./db/seed.sql:/seed.sql
+
+  readDB:
+    image: surrealdb/surrealdb:latest
+    container_name: readDB
+    restart: always
+    command: start --user ${READ_DB_USER} --pass ${READ_DB_PASSWORD} file:/data/database.db
+    ports:
+      - 443:8000
+    volumes:
+      - ./data:/data
+      - ./db/schema.surql:/schema.surql
