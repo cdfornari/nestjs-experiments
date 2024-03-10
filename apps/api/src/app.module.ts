@@ -9,7 +9,7 @@ import { FibonacciModule } from './core/infrastructure/fibonacci';
 import { UserModule } from './users/infrastructure';
 import { PaymentsModule } from './payments/infrastructure';
 import { I18nModule } from './core/infrastructure/i18n';
-import { SurrealModule } from './core/infrastructure/surrealdb/surrealdb.module';
+import { SurrealModule } from './core/infrastructure/surrealdb';
 
 @Module({
   imports: [
