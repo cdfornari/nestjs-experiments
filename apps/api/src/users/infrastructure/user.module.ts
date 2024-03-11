@@ -17,6 +17,8 @@ import { OrmUser } from './entities/orm-user';
 import { OrmUserRepository } from './repositories/orm-user-repository';
 import { OrmUserMapper } from './mappers/orm-user-mapper';
 import { UserExceptionMapper } from './mappers/user-exception-mapper';
+import { SurrealUserMapper } from './mappers/surreal-user-mapper';
+import { SurrealUserRepository } from './repositories/surreal-user-repository';
 
 @Module({
   imports: [
@@ -26,10 +28,11 @@ import { UserExceptionMapper } from './mappers/user-exception-mapper';
   providers: [
     { provide: User, useClass: MockUserRepository },
     { provide: TenantUser, useClass: TenantUserRepository },
-    { provide: READ_DATABASE, useClass: MockUserRepository },
+    { provide: READ_DATABASE, useClass: SurrealUserRepository },
     { provide: WRITE_DATABASE, useClass: OrmUserRepository },
     UserMapper,
     OrmUserMapper,
+    SurrealUserMapper,
     UserExceptionMapper,
     GetUsersHandler,
     HireUsersHandler,
