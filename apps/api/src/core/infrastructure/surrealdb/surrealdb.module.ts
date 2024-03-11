@@ -37,14 +37,18 @@ export class SurrealModule extends ConfigurableModuleClass {
               database,
             );
             return {
-              create: surreal.create,
-              merge: surreal.merge,
-              query: surreal.query,
-              select: surreal.select,
-              delete: surreal.delete,
-              update: surreal.update,
-              set: surreal.set,
-              unset: surreal.unset,
+              create: (resource: string, data?: any) =>
+                surreal.create(resource, data),
+              merge: (resource: string, data: any) =>
+                surreal.merge(resource, data),
+              query: (sql: string, bindings?: any) =>
+                surreal.query(sql, bindings),
+              select: (resource: string) => surreal.select(resource),
+              delete: (restource: string) => surreal.delete(restource),
+              update: (resource: string, data?: any) =>
+                surreal.update(resource, data),
+              set: (key: string, value: any) => surreal.set(key, value),
+              unset: (key: string) => surreal.unset(key),
             };
           }).pipe(
             retry({
