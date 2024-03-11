@@ -22,4 +22,3 @@ services:
       - 443:8000
     volumes:
       - ./data:/data
-      - ./db/schema.surql:/schema.surql
