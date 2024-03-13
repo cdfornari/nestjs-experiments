@@ -16,26 +16,29 @@ export class SurrealUserRepository implements UserRepository {
 
   async saveUser(user: User): Promise<void> {
     const _user = await this.findUserById(user.id);
+    const recordId = '`' + user.id.value + '`';
     if (_user) {
-      await this.surreal.merge(
-        `user:${user.id.value}`,
+      await this.surreal.update(
+        `user:${recordId}`,
         this.mapper.fromDomainToPersistence(user),
       );
       return;
     }
     await this.surreal.create(
-      `user:${user.id.value}`,
+      `user:${recordId}`,
       this.mapper.fromDomainToPersistence(user),
     );
   }
 
   async findUserById(id: UserId): Promise<User | null> {
-    const [result]: any[] = await this.surreal.select(`user:${id.value}`);
-    if (!result) return null;
+    const recordId = '`' + id.value + '`';
+    const result: any[] = await this.surreal.select(`user:${recordId}`);
+    if (!result || result.length === 0) return null;
+    const user = result[0];
     return this.mapper.fromPersistenceToDomain({
       id: id.value,
-      email: result.email,
-      enterprise: result.enterprise,
+      email: user.email,
+      enterprise: user.enterprise,
     });
   }
 
