@@ -9,5 +9,7 @@ export abstract class DomainEvent {
     return this.constructor.name;
   }
 
-  static eventName = this.constructor.name;
+  static get eventName() {
+    return this.prototype.constructor.name;
+  }
 }
