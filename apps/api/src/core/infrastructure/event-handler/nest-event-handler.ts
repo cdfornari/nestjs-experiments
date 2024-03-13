@@ -14,7 +14,7 @@ export class NestEventHandler implements EventHandler {
   }
 
   subscribe(
-    event: DomainEvent,
+    event: { new (...args: any[]): DomainEvent; eventName: string },
     callback: (event: DomainEvent) => Promise<void>,
   ): { unsubscribe: () => void } {
     this.eventEmitter.on(event.eventName, callback);

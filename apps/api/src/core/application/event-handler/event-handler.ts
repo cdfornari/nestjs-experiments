@@ -7,7 +7,7 @@ type Subscription = {
 export interface EventHandler {
   publishEvents(events: DomainEvent[]): void;
   subscribe(
-    event: DomainEvent,
+    event: { new (...args: any[]): DomainEvent; eventName: string },
     callback: (event: DomainEvent) => Promise<void>,
   ): Subscription;
 }
