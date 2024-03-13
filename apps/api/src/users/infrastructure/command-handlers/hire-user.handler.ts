@@ -11,6 +11,10 @@ import { NestEventHandler } from 'src/core/infrastructure/event-handler/nest-eve
 import { EnterpriseType } from 'src/users/domain/value-objects/enterprise';
 import { WRITE_DATABASE } from '../constants';
 import { UserExceptionMapper } from '../mappers/user-exception-mapper';
+import { UserHiredEvent } from 'src/users/domain/events/user-hired';
+import { lastValueFrom } from 'rxjs';
+import { USER_QUEUE } from 'src/core/infrastructure/rmq-client';
+import { ClientProxy } from '@nestjs/microservices';
 
 export class HireUserCommandType {
   constructor(
@@ -26,9 +30,22 @@ export class HireUsersHandler implements ICommandHandler<HireUserCommandType> {
     private readonly userRepository: UserRepository,
     private readonly eventHandler: NestEventHandler,
     private readonly exceptionMapper: UserExceptionMapper,
+    @Inject(USER_QUEUE)
+    private readonly rmqClient: ClientProxy,
   ) {}
 
   async execute(command: HireUserCommandType) {
+    this.eventHandler.subscribe(
+      UserHiredEvent,
+      async (event: UserHiredEvent) => {
+        await lastValueFrom(
+          this.rmqClient.emit('user-hired', {
+            id: event.id.value,
+            enterprise: event.enterprise.value,
+          }),
+        );
+      },
+    );
     const service = new ExceptionParserDecorator<HireUserDto, HireUserResponse>(
       new HireUserCommand(this.userRepository, this.eventHandler),
       this.exceptionMapper,

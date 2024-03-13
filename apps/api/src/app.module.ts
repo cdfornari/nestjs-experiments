@@ -13,7 +13,9 @@ import { SurrealModule } from './core/infrastructure/surrealdb';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     CqrsModule.forRoot(),
     EventEmitterModule.forRoot(),
     SchedulerModule,

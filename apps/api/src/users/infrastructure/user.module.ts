@@ -19,11 +19,19 @@ import { OrmUserMapper } from './mappers/orm-user-mapper';
 import { UserExceptionMapper } from './mappers/user-exception-mapper';
 import { SurrealUserMapper } from './mappers/surreal-user-mapper';
 import { SurrealUserRepository } from './repositories/surreal-user-repository';
+import {
+  RmqClientModule,
+  USER_QUEUE,
+} from 'src/core/infrastructure/rmq-client';
+import { InitUserSync } from './providers/init-user-sync';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([OrmUser]),
-    I18nModule, EventHandlerModule],
+    I18nModule,
+    EventHandlerModule,
+    RmqClientModule.register({ name: USER_QUEUE }),
+  ],
   controllers: [UserController, TenantUserController],
   providers: [
     { provide: User, useClass: MockUserRepository },
@@ -37,6 +45,7 @@ import { SurrealUserRepository } from './repositories/surreal-user-repository';
     GetUsersHandler,
     HireUsersHandler,
     FireUsersHandler,
+    InitUserSync,
   ],
 })
 export class UserModule {}
