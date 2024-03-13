@@ -31,14 +31,7 @@ $ npm run i
 ## Running the apps
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ npm run app
 ```
 
 ## Debugging

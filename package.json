@@ -10,7 +10,7 @@
     "start:prod": "cd apps/api && npm run start:prod",
     "debug:circular": "npx madge --circular apps/api/dist/main.js",
     "debug:depgraph": "npx madge apps/api/dist/main.js --image docs/api-depgraph.png",
-    "db": "docker-compose up -d",
+    "app": "docker-compose up -d",
     "db:seed": "docker-compose exec -d writeDB psql -U postgres -d WRITEDB -f seed.sql"
   },
   "author": "Carlos Fornari",
